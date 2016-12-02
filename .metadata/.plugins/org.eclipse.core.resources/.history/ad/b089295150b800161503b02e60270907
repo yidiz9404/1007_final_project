@@ -113,19 +113,12 @@ img {
 }
 #header div ul li.menu:hover ul.primary1 {
 	left: 10px;
-	top: 100px;	
-}
-#header div ul li.menu:hover ul.primary2 {
-	left: 10px;
-	top: 150px;	
+	top: 50px	
 }
 #header div ul li.menu ul.primary.selected {
-	left: 25px;
-}
-#header div ul li.menu ul.primary1.selected {
 	left: 10px;
 }
-#header div ul li.menu ul.primary2.selected {
+#header div ul li.menu ul.primary1.selected {
 	left: 10px;
 }
 #header div ul li.menu:hover ul.secondary {
