@@ -105,5 +105,3 @@ def plot_geomap(zipcode, geomap):
     output_file("geomap.html")
     show(plot)
 
-
-# In[14]:

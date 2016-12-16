@@ -20,12 +20,11 @@ def main():
     while True:
         print("Welcome to our program.")
         print('************************************************')
-        print("1. Overall Collision in a year")
+        print("1. Overall Collision Visualized in a year")
         print("2. Collision vs Weather in Daily/Monthly Basis")
         print("3. Location")
         print("4. Summary")
         print('************************************************')
-        print(weather.head(3))
         try:
             menu = input("Please input a number for further information:")
             #user choose overall collision in a year
@@ -58,6 +57,7 @@ def main():
                             pie_borough(data)  
                     except ValueError:
                         print("ok")
+                        
             #user choose collision vs weather
             if int(menu) == 2:
                 while True: 
@@ -67,13 +67,11 @@ def main():
                             break
                         if day.lower() == 'quit':
                             sys.exit(0)
-                    #day = date(day)
-                    #function identify input is valid?????
-                    #print(day)
+                        check(day)
                         weatheroutput(weather)
                         collisionoutput(day, data, dayplot)   
                     except ValueError:
-                        print("ok")
+                        print()
                         
             if int(menu) == 3:
                 while True: 

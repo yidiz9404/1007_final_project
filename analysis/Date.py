@@ -10,79 +10,77 @@ from collections import Counter
 from datetime import datetime
 import matplotlib.pyplot as plt
 
-# #Load data
-# weather = pd.read_csv("weather.csv")
-# data = pd.read_csv("clean_data.csv")
-# dayplot = pd.read_csv("dayplot.csv")
+def check(inputs):
+    """Check whether inputs are valid, and create the class"""
+    #initial checks
+    inputs = inputs.strip()
+    inputs = inputs.replace(" ", "")
+    sep = inputs.split("/")
+    if len(sep) != 3 and len(sep) != 2:
+        print("This is an invalid input.")
+        raise ValueError
+    if sep[-1] != '2015' and sep[-1] != '2016':
+            print("This is an invalid input. Please input year 2015 or 2016")
+            raise ValueError
+    if len(sep) == 3:
+        if len(sep[0]) != 2 or len(sep[1]) != 2 or len(sep[2]) != 4:
+            print("This is an invalid input. The format should be: mm/dd/yyyy")
+            raise ValueError
+        try:
+            int(sep[0]) + int(sep[1]) + int(sep[2])
+        except ValueError:
+            print("Please enter a valid date.")
+            raise ValueError
+        if sep[2] == '2015':
+            if sep[0] != '11' and sep[0] != '12':
+                print("Please input a valid date range (11.2015 till 10.2016).")
+                raise ValueError
+            if sep[0] == '11':
+                if int(sep[1]) > 30 or int(sep[1]) < 1:
+                    print("Please input date accordingly.")
+                    raise ValueError
+            if sep[0] == '12':
+                if int(sep[1]) > 31 or int(sep[1]) < 1:
+                    print("Please input date accordingly.")
+                    raise ValueError
+        if sep[2] == '2016':
+            odd = [1, 3, 5, 7, 8, 10, 12]
+            even = [4, 6, 9, 11]
+            if int(sep[0]) >= 11:
+                print("Please input a valid date range (11.2015 till 10.2016).")
+                raise ValueError
+            if int(sep[0]) in odd:
+                if int(sep[1]) > 31 or int(sep[1]) < 1:
+                    print("Please input date accordingly.")
+                    raise ValueError
+            if int(sep[0]) in even:
+                if int(sep[1]) > 30 or int(sep[1]) < 1:
+                    print("Please input date accordingly.")
+                    raise ValueError
+            if int(sep[0]) == 2:
+                if int(sep[1]) > 29 or int(sep[1]) < 1:
+                    print("Please input date accordingly.")
+                    raise ValueError
+                
+    if len(sep) == 2:
+        if len(sep[0]) != 2 or len(sep[1]) != 4:
+            raise ValueError("This is an invalid input. The format should be: mm/yyyy")
+        try:
+            int(sep[0]) + int(sep[1])
+        except ValueError:
+            print("Please enter a valid date.")
+            raise ValueError
+        if sep[1] == '2015':
+            if sep[0] != '11' and sep[0] != '12':
+                print("Please input a valid date range (11.2015 till 10.2016).")
+                raise ValueError
+        if sep[1] == '2016':
+            if int(sep[0]) >= 11:
+                print("Please input a valid date range (11.2015 till 10.2016).")
+                raise ValueError
+                
 
 
-# In[8]:
-
-# date = '07/21/2016'
-# weatheroutput(date)
-# collisionoutput(date)
-
-
-# In[3]:
-
-class date:
-    def __init__(self, inputs):
-        """Check whether inputs are valid, and create the class"""
-        #initial checks
-        inputs = inputs.strip()
-        inputs = inputs.replace(" ", "")
-        sep = inputs.split("/")
-        if len(sep) != 3 and len(sep) != 2:
-            raise ValueError("This is an invalid input.")
-        if sep[-1] != '2015' and sep[-1] != '2016':
-                raise ValueError("This is an invalid input. Please input year 2015 or 2016")
-        if len(sep) == 3:
-            if len(sep[0]) != 2 or len(sep[1]) != 2 or len(sep[2]) != 4:
-                raise ValueError("This is an invalid input. The format should be: mm/dd/yyyy")
-            try:
-                int(sep[0]) + int(sep[1]) + int(sep[2])
-            except ValueError:
-                print("Please enter a valid date.")
-            if sep[2] == '2015':
-                if sep[0] != '11' and sep[0] != '12':
-                    raise ValueError("Please input a valid date range (11.2015 till 10.2016).")
-                if sep[0] == '11':
-                    if int(sep[1]) > 30 or int(sep[1]) < 1:
-                        raise ValueError("Please input date accordingly.")
-                if sep[0] == '12':
-                    if int(sep[1]) > 31 or int(sep[1]) < 1:
-                        raise ValueError("Please input date accordingly.")
-            if sep[2] == '2016':
-                odd = [1, 3, 5, 7, 8, 10, 12]
-                even = [4, 6, 9, 11]
-                if int(sep[0]) >= 11:
-                    raise ValueError("Please input a valid date range (11.2015 till 10.2016).")
-                if int(sep[0]) in odd:
-                    if int(sep[1]) > 31 or int(sep[1]) < 1:
-                        raise ValueError("Please input date accordingly.")
-                if int(sep[0]) in even:
-                    if int(sep[1]) > 30 or int(sep[1]) < 1:
-                        raise ValueError("Please input date accordingly.")
-                if int(sep[0]) == 2:
-                    if int(sep[1]) > 29 or int(sep[1]) < 1:
-                        raise ValueError("Please input date accordingly.")
-                    
-        if len(sep) == 2:
-            if len(sep[0]) != 2 or len(sep[1]) != 4:
-                raise ValueError("This is an invalid input. The format should be: mm/yyyy")
-            try:
-                int(sep[0]) + int(sep[1])
-            except ValueError:
-                print("Please enter a valid date.")
-            if sep[1] == '2015':
-                if sep[0] != '11' and sep[0] != '12':
-                    raise ValueError("Please input a valid date range (11.2015 till 10.2016).")
-            if sep[1] == '2016':
-                if int(sep[0]) >= 11:
-                    raise ValueError("Please input a valid date range (11.2015 till 10.2016).")
-
-
-# In[4]:
 
 def plot_month_plot(picked_month, data):
     '''
