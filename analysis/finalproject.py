@@ -145,7 +145,8 @@ def main():
                         if int(option) == 2:
                             collision_data = data.drop(['BRONX','BROOKLYN','MANHATTAN','QUEENS','STATEN ISLAND','MaxFactor','MaxVehicle'],1)
                             corr = correlation(label='DATE')
-                            corr.weather_collision_corr(weather, collision_data)  
+                            merged = corr.weather_collision_merge(weather, collision_data) 
+                            corr.plot_weather_collision(merged)
                         if int(option) == 3:
                             print('Bonus!')
                     except ValueError:

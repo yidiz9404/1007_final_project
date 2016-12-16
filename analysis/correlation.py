@@ -12,7 +12,7 @@ import mpl_toolkits.axisartist as AA
 class correlation:
     def __init__(self, rangen=13, label = 'DATE'):
         self.rangen = rangen
-        self.label = 'DATE'
+        self.label = label
     
     def weather_corr(self, weather, data):
         total_rain = []
@@ -69,9 +69,12 @@ class correlation:
         plt.draw()
         plt.show()
             #plt.savefig('collisions_vs_rain_snow.pdf')
-    def weather_collision_corr(self, weather, data):
+    def weather_collision_merge(self, weather, data):
         weather_collision = weather.merge(data, on= self.label)
-        corr = weather_collision.corr()
+        return weather_collision
+    
+    def plot_weather_collision(self, merged):
+        corr = merged.corr()
         fig, ax = plt.subplots(figsize=(10,10))
         cax = ax.matshow(corr)
         plt.xticks(range(len(corr.columns)), corr.columns, rotation='vertical')
